@@ -1,0 +1,110 @@
+//
+// Copyright 2014 Esri
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+@import "../../../variables";
+
+.dgrid {
+	border: $dgrid-border;
+	background: $dgrid-background;
+}
+
+.ui-widget-header,
+.ui-widget-header .dgrid-cell,
+.dgrid-footer,
+.dgrid-footer .dgrid-cell { 
+	line-height: $line-height;
+}
+
+/* Header */
+
+.ui-widget-header {
+	font-weight: bold;
+	box-shadow: $dgrid-header-box-shadow;
+
+	.dgrid-cell {
+		&:hover {
+			button-hover-style();
+		}
+		&:active {
+			button-active-style();
+		}
+	}
+
+	.dgrid-cell-padding {
+		padding: $dgrid-header-padding;
+	}
+}
+
+/* Footer */
+
+.dgrid-footer {
+	border-top: 1px solid $border-color;
+}
+
+/* Cell */
+
+.dgrid-cell {
+	border-color: $dgrid-cell-border-color;
+	padding: $dgrid-cell-padding;
+	vertical-align: middle;
+}
+
+/* Row */
+
+.ui-state-default { 
+	transition-duration: 0.1s;
+	transition-property: background, border-color;
+
+	/* Hover */
+
+	&:hover {
+		background: $dgrid-row-hover-background;
+	}
+}
+
+/* Active */
+
+.ui-state-active {
+	background: $dgrid-row-active-background;
+	box-shadow: $dgrid-row-active-box-shadow;
+	//color: $dgrid-row-active-color;
+	&:hover,
+	&:active {
+		background: $dgrid-row-active-background;
+		box-shadow: $dgrid-row-active-box-shadow;
+		//color: $dgrid-row-active-color;
+	}
+
+	.dijit {
+		color: #333;
+	}
+}
+
+/* Error / Loading Message */
+
+.dgrid-no-data,
+.dgrid-loading {
+	margin: $dgrid-errormessage-margin;
+	text-align: center;
+	color: $dgrid-errormessage-color;
+}
+
+/* list view */
+
+.dgrid-list .ui-state-default {
+	line-height: $line-height;
+	padding: $padding;
+}

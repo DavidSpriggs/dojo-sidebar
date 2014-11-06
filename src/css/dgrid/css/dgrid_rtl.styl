@@ -1,0 +1,78 @@
+//
+// Copyright 2014 Esri
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+@import "../../variables";
+
+.dgrid-rtl-nonwebkit {
+	.dgrid-header {
+		right: 0;
+		left: 17px;
+	}
+	
+	.dgrid-header-scroll {
+		left: 0px;
+		right: auto;
+	}
+}
+
+.dgrid-rtl {
+	.dgrid-cell {
+		text-align: right;
+		border-right-style: none;
+		border-left-style: solid;
+	}
+
+	.dgrid-header-row {
+		right: 0;
+	}
+
+	.dgrid-header-scroll {
+		left: 0;
+		right: auto;
+	}
+
+	/* Reverse position of sort arrow */
+	
+	.dgrid-sort-arrow {
+		float: left;
+	}
+
+	/* Reverse arrows for tree expando states */
+
+	.ui-icon-triangle-1-e {
+		&:before {
+			content: "\f0d9";
+		}
+	}
+
+	/* Extensions */
+	/* Column Hider */
+	.dgrid-hider-menu {
+		right: auto;
+		left: (21px - $dgrid-extension-columnhider-icon-width) * 0.5 + $dgrid-extension-columnhider-icon-width;
+	}
+
+	.dgrid-hider-menu-check {
+		left: auto;
+		right: $dgrid-extension-columnhider-menu-box-row-padding;
+	}
+
+	.dgrid-hider-menu-label {
+		padding-left: 0;
+		padding-right: $dgrid-extension-columnhider-icon-width + $dgrid-extension-columnhider-menu-box-row-padding; /* width of a checkbox plus value of the default padding */;
+		text-align: right;
+	}
+}

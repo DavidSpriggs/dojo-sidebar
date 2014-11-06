@@ -1,3 +1,7 @@
+deps
+dist
+dev
+
 # Logs
 logs
 *.log

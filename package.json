@@ -1,0 +1,31 @@
+{
+  "name": "CMV-ConfigurableMapViewer",
+  "version": "0.1.0",
+  "author": "https://github.com/cmv",
+  "license": "MIT",
+  "year": "2014",
+  "homepage": "http://cmv.io",
+  "repository": "https://github.com/cmv/cmv-app/",
+  "dependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-htmlmin": "0.x.x",
+    "grunt-contrib-stylus": "0.x.x",
+    "grunt-autoprefixer": "0.7.x",
+    "grunt-contrib-clean": "0.5.x",
+    "grunt-contrib-connect": "0.7.x",
+    "grunt-contrib-copy": "0.5.x",
+    "grunt-contrib-cssmin": "0.9.x",
+    "grunt-contrib-jshint": "0.10.x",
+    "jshint-stylish": "0.2.x",
+    "grunt-contrib-uglify": "0.4.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-newer": "0.7.x",
+    "grunt-open": "0.2.x",
+    "grunt-contrib-compress": "0.10.x",
+    "proxypage": "*",
+    "grunt-esri-slurp": "*",
+    "intern": "*",
+    "grunt-exec": "*"
+  },
+  "engine": "node >= 0.10"
+}

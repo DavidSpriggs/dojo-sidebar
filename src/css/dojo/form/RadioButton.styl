@@ -1,0 +1,90 @@
+//
+// Copyright 2014 Esri
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+/* RadioButton
+ * 
+ * Styling RadioButton mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitRadio|.dijitRadioIcon
+ * 
+ * 2. RadioButton within ToggleButton
+ * 		.dijitToggleButton|.dijitToggleButtonChecked
+ * 
+ * 3. Checked state
+ * 		.dijitRadioChecked
+ * 		.dijitToggleButtonChecked
+ * 
+ * 4. Hover state
+ * 		.dijitRadioHover|.dijitRadioCheckedHover
+ * 
+ * 5. Disabled state
+ * 		.dijitRadioDisabled|.dijitRadioCheckedDisabled
+ */
+
+@import "../../variables";
+
+.dijitRadio,
+.dijitRadioIcon	{		/* inside a toggle button */
+	_icon-core-style();
+	width: $radio-width;
+	height: $radio-height;
+	color: $radio-background-color;
+	font-size: $radio-icon-size;
+	position: relative;
+	&:before,
+	&:after {
+		display: block;
+		width: 100%;
+		text-align: center;
+		content:"\f111";
+	}
+	&:after {
+		position: absolute;
+		top 0;
+		left: 0;
+		content:"\f10c";
+		color: $radio-border-color;
+	}
+	input {
+		position: absolute;
+		top: 0;
+	}
+}
+
+/* checked */
+
+.dijitRadioChecked {
+	&:after {
+		content: "\f192";
+		color: $radio-checked-color;
+	}
+}
+
+/* hover */
+
+/* over unchecked */
+.dijitRadioHover {
+	&:after {
+		color: $radio-hover-checked-color;
+	}
+}
+
+/* disabled */
+
+.dijitRadioDisabled {
+	opacity: $disabled-opacity;
+}

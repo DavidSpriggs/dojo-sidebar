@@ -1,0 +1,52 @@
+//
+// Copyright 2014 Esri
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+@import "../../variables";
+
+.dijitSliderRtl {
+	.dijitSliderProgressBarH {
+		float:right;
+		right:0;
+		left:auto;
+	}
+	.dijitSliderLeftBumper {
+		border-left-width: 0;
+		border-right-width: 1px;
+		margin-left: 0;
+		margin-right: $slider-bar-spacing;
+		border-radius: 0 $slider-bar-radius $slider-bar-radius 0;
+	}
+	.dijitSliderRightBumper {
+		border-left-width: 1px;
+		border-right-width: 0;
+		margin-left: $slider-bar-spacing;
+		margin-right: -2px;
+		border-radius: $slider-bar-radius 0 0 $slider-bar-radius;
+	}
+	.dijitSliderMoveableH {
+		right: auto;
+		left: 0;
+	}
+	.dijitSliderImageHandleV {
+		left:auto;
+	}
+	.dijitSliderImageHandleH {
+		left:-50%;
+	}
+	.dijitRuleContainerV {
+		float:right;
+	}
+}
