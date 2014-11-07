@@ -1,10 +1,17 @@
 define([
   'esri/map',
   'esri/dijit/HomeButton',
+
   'put-selector',
+
+  'dojo/_base/lang',
   'dojo/domReady!'
 ], function(
-  Map, HomeButton, put
+  Map, HomeButton,
+
+  put,
+
+  lang
 ) {
   return {
     startup: function(config) {
@@ -20,10 +27,17 @@ define([
         zoom: 3,
         basemap: 'streets'
       });
+      this.map.on('load', lang.hitch(this, 'initWidgets'));
+    },
+    initWidgets: function() {
+      //create controls div
+      this.controlsNode = put(this.map.root, 'div.topLeftControls');
+      //move the slider into the controls div
+      put(this.controlsNode, '>', this.map._slider);
 
       this.home = new HomeButton({
         map: this.map
-      }, put(this.map.root,'div.homeButton div'));
+      }, put(this.controlsNode,'div.homeButton div')); //create the home button in the controls div
       this.home.startup();
     }
   };

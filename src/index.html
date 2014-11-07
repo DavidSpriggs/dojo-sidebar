@@ -25,8 +25,8 @@
             var dojoConfig = {
                 async: true,
                 packages: [{
-                    name: 'cmv',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/cmv'
+                    name: 'core',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/core'
                 },{
                     name: 'config',
                     location: location.pathname.replace(/[^\/]+$/, '') + 'js/config'
@@ -46,7 +46,7 @@
                     config = 'config/' + config;
                 }
             }
-            require(['cmv/Controller', config], function(Controller, config){
+            require(['core/Controller', config], function(Controller, config){
                 Controller.startup(config);
             });
         </script>

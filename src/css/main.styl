@@ -1,19 +1,31 @@
 body, html {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-size: 14px;
-    background: url("../images/noisy_grid.png") #fff;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+  background: url("../images/noisy_grid.png") #fff;
 }
 
 .map {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.topLeftControls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 30;
+  transition: left 500ms;
+}
+
+.topLeftControls .open {
+  left: 500px;
 }
 
 .homeButton {
