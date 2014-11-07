@@ -1,13 +1,15 @@
 define([
   'esri/map',
   'esri/dijit/HomeButton',
+  'esri/dijit/LocateButton',
+  'esri/dijit/Geocoder',
 
   'put-selector',
 
   'dojo/_base/lang',
   'dojo/domReady!'
 ], function(
-  Map, HomeButton,
+  Map, HomeButton, LocateButton, Geocoder,
 
   put,
 
@@ -37,8 +39,19 @@ define([
 
       this.home = new HomeButton({
         map: this.map
-      }, put(this.controlsNode,'div.homeButton div')); //create the home button in the controls div
+      }, put(this.controlsNode, 'div.homeButton div')); //create the home button in the controls div
       this.home.startup();
+
+      this.geoLocate = new LocateButton({
+        map: this.map
+      }, put(this.controlsNode, 'div.LocateButton div'));
+      this.geoLocate.startup();
+
+      this.search = new Geocoder({
+        map: this.map,
+        autoComplete: true
+      }, put(this.controlsNode, 'div.search div'));
+      this.search.startup();
     }
   };
 });
