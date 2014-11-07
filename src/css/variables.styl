@@ -35,7 +35,7 @@ $disabled-color									=						$primary-color;
 $error-color									=						$red-color;
 $highlight-color								=						$dark-blue-color;
 $disabled-opacity								=						0.65;
-														
+
 // font
 
 $text-color										=						$black-color;												//default font color
@@ -46,11 +46,11 @@ $line-height									=						20px;
 $text-shadow									=						0 1px 1px rgba(255, 255, 255, 0.75);
 $inverse-text-shadow							=						0 -1px 0 rgba(0, 0, 0, 0.25);
 
-// container 
+// container
 
 $container-background-color						=						$white-color;
 $inverse-container-background-color				=						$black-color;
-$border-color									=						$light-gray-color;							
+$border-color									=						$light-gray-color;
 $disabled-border-color							=						$border-color;
 $border-radius									=						2px;
 $padding										=						4px;
@@ -73,7 +73,7 @@ $dijit-arrow-thickness							=						4px
 $highlight-background							=						$highlight-color;
 $lighten-border-color							=						lighten($border-color, 65%);
 $lighten-highlight-color						=						lighten($highlight-color, 35%);
-$secondary-container-background-color			=						$primary-color;											// dialog action bar at bottom	
+$secondary-container-background-color			=						$primary-color;											// dialog action bar at bottom
 
 /****************************************************************************************
  ***************************************** Form *****************************************
@@ -111,7 +111,7 @@ $button-active-shadow							=						0 1px 3px rgba(0, 0, 0, 0.25) inset;
 
 // Common style properties
 
-$button-alternative-common						=						{color: $inverse-text-color, text-shadow: $inverse-text-shadow};				
+$button-alternative-common						=						{color: $inverse-text-color, text-shadow: $inverse-text-shadow};
 
 /****************************************************************************************
  * Alternative colors object structure: { @buttonclassname : @color, ...}
@@ -175,7 +175,7 @@ $checkbox-icon-size								=						$icon-size;
 
 ////  normal
 
-$checkbox-background-color						=						$primary-color;	
+$checkbox-background-color						=						$primary-color;
 $checkbox-border								=						1px solid $border-color;
 $checkbox-box-shadow							=						none;
 
@@ -214,7 +214,7 @@ $radio-icon-size								=						20px;
 
 ////  normal
 
-$radio-background-color							=						$primary-color;						
+$radio-background-color							=						$primary-color;
 $radio-border-color								=						$border-color;
 $radio-box-shadow								=						0 0 2px rgba(0, 0, 0, 0.35) inset;
 
@@ -233,15 +233,15 @@ $radio-hover-checked-color						=						lighten($radio-checked-color, 25%);
 ///// Nothing
 
 /****************************************************************************************
- * Select (only for the button part, the styles for the "dropdown" are defined in the 
- * "Menu" section)	
+ * Select (only for the button part, the styles for the "dropdown" are defined in the
+ * "Menu" section)
  ****************************************************************************************/
 
 $select-border									=						1px solid $border-color;
 
 // Select's normal, hover, active and disabled styles are the same as "form/Button"
 
-//// focus 
+//// focus
 $select-focus-border							=						$select-border;												// this is applied to the select root node
 
 /****************************************************************************************
@@ -250,7 +250,7 @@ $select-focus-border							=						$select-border;												// this is applied 
 
 // most of the styles are applied to both horizontal and vertical sliders, variables
 // specifically applied to the vertical slider are defined at the last of this section
- 
+
 $slider-text-color								=						$text-color;												// text color for labeling
 $slider-disabled-text-color						=						$disabled-text-color;
 
@@ -262,15 +262,15 @@ $slider-container-border						=						0 none;
 $slider-container-border-radius					=						0;
 $slider-container-box-shadow					=						none;
 
-//// bar 
+//// bar
 
 $slider-bar-width								=						6px;														// the height for the horizontal slider and the width for the vertical slider
 $slider-bar-radius								=						$border-radius;
 $slider-bar-spacing								=						$padding;													// the spacing between the buttons and the bar
-	
+
 // honrizontal slider
 
-////// normal 
+////// normal
 
 $slider-progressbar-border-color				=						darken($highlight-color, 15%);
 $slider-progressbar-background-color			=						$highlight-color;																		// Background color for the progress(highlight) part of slider bar, this will be used to generate the linear-gradient as well fallback background in "Form/SLider.styl"
@@ -280,7 +280,7 @@ $slider-remainingbar-box-shadow					=						1px 1px 1px rgba(0, 0, 0, 0.075) inse
 
 ////// hover
 
-$slider-hovered-progressbar-border-color		=						darken($highlight-color, 25%);													
+$slider-hovered-progressbar-border-color		=						darken($highlight-color, 25%);
 
 ////// focus
 
@@ -292,12 +292,12 @@ $slider-focused-progressbar-border-color		=						$slider-progressbar-border-colo
 
 // vertical slider
 
-////// normal 
+////// normal
 
 $slider-progressbar-vertical-border-color				=						$slider-progressbar-border-color;
-$slider-progressbar-verticalr-background-color			=						$highlight-color; 					
+$slider-progressbar-verticalr-background-color			=						$highlight-color;
 $slider-remainingbar-vertical-border-color				=						$slider-remainingbar-border-color;
-$slider-remainingbar-vertical-background-color			=						$slider-remainingbar-background-color;													
+$slider-remainingbar-vertical-background-color			=						$slider-remainingbar-background-color;
 $slider-remainingbar-vertical-box-shadow				=						1px -1px 1px rgba(0, 0, 0, 0.075) inset;
 
 ////// hover
@@ -306,7 +306,7 @@ $slider-hovered-progressbar-vertical-border-color		=						$slider-hovered-progre
 
 ////// focus
 
-$slider-focused-progressbar-vertical-border-color		=						$slider-progressbar-vertical-border-color;													
+$slider-focused-progressbar-vertical-border-color		=						$slider-progressbar-vertical-border-color;
 
 ////// disabled
 /////// Nothing
@@ -345,10 +345,10 @@ $slider-ruler-padding									=						$padding * 0.5;
  * Number Spinner
  ****************************************************************************************/
 
-$numberspinner-button-border							=						1px solid $border-color;	
+$numberspinner-button-border							=						1px solid $border-color;
 $numberspinner-button-inner-padding						=						$padding;
 $numberspinner-button-width								=						($line-height + $numberspinner-button-inner-padding * 2);
-$numberspinner-button-line-height						=						($line-height + $numberspinner-button-inner-padding * 2) / 2; 
+$numberspinner-button-line-height						=						($line-height + $numberspinner-button-inner-padding * 2) / 2;
 $numberspinner-button-padding							=						0;
 $numberspinner-arrow-padding							=						$padding;
 
@@ -370,10 +370,10 @@ $bordercontainer-border							=						1px solid $border-color;
 
 //// splitter
 
-$splitter-size									=						isEven($bordercontainer-padding) ? $bordercontainer-padding + 1 : $bordercontainer-padding;			// the width of the splitter, will always be an odd number since the splitter bar's width is always 1px 
+$splitter-size									=						isEven($bordercontainer-padding) ? $bordercontainer-padding + 1 : $bordercontainer-padding;			// the width of the splitter, will always be an odd number since the splitter bar's width is always 1px
 $splitter-color									=						$border-color;																						// color of the splitter thumb (the 1px wide bar)
-$splitter-hovered-color							=						darken($primary-color, 25%);												
-$splitter-dragged-color							=						$splitter-hovered-color;												
+$splitter-hovered-color							=						darken($primary-color, 25%);
+$splitter-dragged-color							=						$splitter-hovered-color;
 $splitter-background							=						none;																								// Color of splitter
 $splitter-hovered-background					=						$primary-color;																						// Color of splitter when user hovers it, before mouse down
 $splitter-dragged-background					=						$splitter-hovered-background;																			// Color of splitter while it's being dragged
@@ -395,7 +395,7 @@ $contentpane-nested-background					=						$contentpane-background;
  * TabContainer
  ****************************************************************************************/
 
-// since tab container widget is more complex than others, so we have some basic 
+// since tab container widget is more complex than others, so we have some basic
 // variables defined only for this widget
 
 $tab-highlight-color							=						$highlight-color;
@@ -503,7 +503,7 @@ $nestedtab-checked-text-color					=						$inverse-text-color;
 $accordion-highlight-color						=						$highlight-color;
 $accordion-spacing								=						0px;												// space between accordion panes; minimum value is 0
 $accordion-border								=						1px solid $border-color;
-$accordion-border-radius						=						$border-radius;										
+$accordion-border-radius						=						$border-radius;
 $accordion-background							=						transparent;
 
 // accordion title bar (only title bar has different status styles; normal, hover and active status styles are inherited from "form/Button")
@@ -525,7 +525,7 @@ $accordion-content-background					=						$container-background-color;
  ************************************ Common Dijits *************************************
  ****************************************************************************************/
 
- 
+
 /****************************************************************************************
  * Common (Common.styl)
  ****************************************************************************************/
@@ -661,19 +661,19 @@ $calendar-date-cell-prev-next-month-text-color	=						lighten($text-color, 50);
 $calendar-date-cell-border-radius				=						$border-radius;
 $calendar-date-cell-current-border-color		=						$highlight-color;
 
-////// hover 
+////// hover
 
 $calendar-date-cell-hovered-background			=						$highlight-color;
 $calendar-date-cell-hovered-text-color			=						$selected-text-color;
 $calendar-date-cell-hovered-text-shadow			=						$inverse-text-shadow;
 
-////// active 
+////// active
 
 $calendar-date-cell-active-background			=						$highlight-color;
 $calendar-date-cell-active-text-color			=						$selected-text-color;
 $calendar-date-cell-active-text-shadow			=						$inverse-text-shadow;
 
-////// selected 
+////// selected
 
 $calendar-date-cell-selected-background			=						$highlight-color;
 $calendar-date-cell-selected-text-color			=						$selected-text-color;
@@ -982,7 +982,7 @@ $dgrid-extension-pagination-navigation-link-padding		=				0 $padding;
 /****************************************************************************************
  ************************************** ESRI ********************************************
  ****************************************************************************************/
- 
+
 /****************************************************************************************
  * Map
  ****************************************************************************************/
@@ -1016,7 +1016,7 @@ $map-simple-zoom-slider-border							=						0 none;
 $map-simple-zoom-slider-border-radius					=						$border-radius;
 $map-simple-zoom-slider-box-shadow						=						$map-widget-box-shadow;
 
-//// Increment and Decrement Buttons 
+//// Increment and Decrement Buttons
 $map-simple-zoom-slider-button-background				=						$primary-color;
 $map-simple-zoom-slider-button-width					=						30px;
 $map-simple-zoom-slider-button-height					=						30px;
@@ -1136,7 +1136,7 @@ $map-bookmark-add-button-width									=						8em;
  * Geocoder
  ****************************************************************************************/
 
-// NOTE: In this theme, "arcgisGeocoder" and "simpleGeocoder" are basically the same. 
+// NOTE: In this theme, "arcgisGeocoder" and "simpleGeocoder" are basically the same.
 
 $map-geocoder-width												=						250px;
 $map-geocoder-background										=						$input-background;
@@ -1302,12 +1302,12 @@ $map-measurement-result-label-padding							=						$padding * 3;
 $map-measurement-result-label-text-color						=						$gray-color;
 $map-measurement-result-label-font-weight						=						normal;
 
-// Result Value 
+// Result Value
 $map-measurement-result-value-font-size							=						normal;
 $map-measurement-result-value-font-weight						=						bold;
 
 /****************************************************************************************
- * OverviewMap 
+ * OverviewMap
  ****************************************************************************************/
 
 $map-overviewmap-background								=						$secondary-container-background-color;
@@ -1337,7 +1337,7 @@ $map-overviewmap-button-hover-background				=						darken($map-overviewmap-butto
 $map-overviewmap-button-active-background				=						darken($map-overviewmap-button-background, 10%);
 
 /****************************************************************************************
- * Popup 
+ * Popup
  ****************************************************************************************/
 
 $map-popup-default-width								=						300px;
