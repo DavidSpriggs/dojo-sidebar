@@ -8,11 +8,15 @@ define([
   'put-selector/put',
 
   'dojo/_base/lang',
+
+  'widgets/Sidebar',
+
   'dojo/domReady!'
 ], function(
   Map, HomeButton, LocateButton, Geocoder, BasemapToggle,
   put,
-  lang
+  lang,
+  Sidebar
 ) {
   return {
     startup: function(config) {
@@ -35,11 +39,14 @@ define([
       //create controls div
       //this.controlsNode = put(this.map.root, 'div.topLeftControls div.sideBar+div.topLeftMapControls+div.clear<');
       //this.controlsNode = put(this.map.root, 'div.topLeftControls');
-      this.sideBarNode = put(this.map.root, 'div.sideBar div.tabs<');
-      this.mapControlsNode = put(this.map.root, 'div.mapControls.sideBarOpen');
+      //this.sideBarNode = put(this.map.root, 'div.sideBar div.tabs<');
+      this.mapControlsNode = put(this.map.root, 'div.mapControls.sidebar-map');
       // put(this.controlsNode, 'div.clear');
       //move the slider into the controls div
       put(this.mapControlsNode, '>', this.map._slider);
+
+      this.sideBar = new Sidebar({}, put(this.map.root, 'div'));
+      this.sideBar.startup();
 
       this.search = new Geocoder({
         map: this.map,
