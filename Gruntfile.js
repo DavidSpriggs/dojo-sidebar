@@ -56,7 +56,13 @@ module.exports = function(grunt) {
         src: [buildFolder]
       },
       dev: {
-        src: [developmentFolder]
+        src: [
+          developmentFolder + '/*.html',
+          developmentFolder + '/css',
+          developmentFolder + '/images',
+          developmentFolder + '/js/*',
+          '!' + developmentFolder + '/js/libs/**'
+        ]
       }
     },
 
@@ -196,6 +202,23 @@ module.exports = function(grunt) {
       }
     },
 
+    'bower-install-simple': {
+      options: {
+        color: true,
+        directory: 'dev/js/libs'
+      },
+      prod: {
+        options: {
+          production: true
+        }
+      },
+      dev: {
+        options: {
+          production: false
+        }
+      }
+    },
+
     esri_slurp: {
       options: {
         version: '3.11'
@@ -204,10 +227,10 @@ module.exports = function(grunt) {
         options: {
           beautify: true
         },
-        dest: 'deps/esri'
+        dest: 'dev/js/libs/esri'
       },
       travis: {
-        dest: 'deps/esri'
+        dest: 'dev/js/libs/esri'
       }
     },
 
@@ -248,6 +271,16 @@ module.exports = function(grunt) {
           src: ['**']
         }]
       }
+    },
+    intern: {
+      dev: {
+        options: {
+          runType: 'runner', // defaults to 'client'
+          config: 'tests/intern',
+          reporters: ['console'],
+          suites: ['tests/unit/example']
+        }
+      }
     }
   });
 
@@ -262,10 +295,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-exec');
+  //grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-esri-slurp');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('intern');
+  grunt.loadNpmTasks('grunt-bower-install-simple');
 
   // Development Tasks
   grunt.registerTask('dev-assets', 'Copies the assets', ['newer:copy:dev']);
@@ -281,6 +316,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', 'Validates, cleans, compiles, and copies assets to the build directory', ['clean:build', 'assets', 'stylesheets', 'scripts']);
   grunt.registerTask('dev', 'Validates and copies assets to the development build directory.', ['clean:dev', 'dev-assets', 'dev-stylesheets', 'dev-scripts']);
   grunt.registerTask('clean-dev', 'Cleans the development build directory', ['clean:dev']);
-  grunt.registerTask('deps', 'Gets JS dependencies and slurps esri js.', ['exec:bower', 'esri_slurp:dev']);
+  grunt.registerTask('setup', 'Gets JS dependencies and slurps esri js.', ['bower-install-simple:dev', 'esri_slurp:dev']);
+  grunt.registerTask('test', 'Run unit tests with intern', ['intern:dev']);
   grunt.registerTask('default', 'Watches the project for changes, and automatically performs a development build.', ['dev', 'connect:dev', 'open:dev_browser', 'watch']);
 };

@@ -7,7 +7,7 @@
   "homepage": "http://cmv.io",
   "repository": "https://github.com/cmv/cmv-app/",
   "dependencies": {
-    "grunt": "0.4.x",
+    "grunt": "*",
     "grunt-contrib-htmlmin": "0.x.x",
     "grunt-contrib-stylus": "0.x.x",
     "grunt-autoprefixer": "0.7.x",
@@ -25,7 +25,8 @@
     "proxypage": "*",
     "grunt-esri-slurp": "*",
     "intern": "*",
-    "grunt-exec": "*"
+    "grunt-exec": "*",
+    "grunt-bower-install-simple": "*"
   },
   "engine": "node >= 0.10"
 }

@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <title>Dojo Sidebar</title>
         <!-- styles -->
-        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' />
+        <!-- <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' /> -->
         <link rel="Stylesheet" type="text/css" href="css/dojo/flat.css" />
         <!--  <link rel="Stylesheet" type="text/css" href="css/dgrid/css/dgrid.css" />
         <link rel="Stylesheet" type="text/css" href="css/dgrid/css/skins/skin.css" /> -->
@@ -33,10 +33,31 @@
                 },{
                     name: 'widgets',
                     location: location.pathname.replace(/[^\/]+$/, '') + 'js/widgets'
+                },{
+                    name: 'dojo',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dojo'
+                },{
+                    name: 'dijit',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dijit'
+                },{
+                    name: 'dojox',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dojox'
+                },{
+                    name: 'dgrid',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dgrid'
+                },{
+                    name: 'esri',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/esri'
+                },{
+                    name: 'put-selector',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/put-selector'
+                },{
+                    name: 'xstyle',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/xstyle'
                 }]
             };
         </script>
-        <script type="text/javascript" src="//js.arcgis.com/3.11compact/"></script>
+        <script type="text/javascript" src="js/libs/dojo/dojo.js"></script>
         <script type="text/javascript">
             // get the config file from the url if present
             var config = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
