@@ -45,8 +45,23 @@ define([
       //move the slider into the controls div
       put(this.mapControlsNode, '>', this.map._slider);
 
-      this.sideBar = new Sidebar({}, put(this.map.root, 'div'));
+      //create the sidebar widget
+      this.sideBar = new Sidebar({
+        collapseSyncNode: this.mapControlsNode
+      }, put(this.map.root, 'div'));
       this.sideBar.startup();
+
+      var tab1 = this.sideBar.createTab({
+        tabIcon: 'fa-bars'
+      });
+      tab1.containerNode.innerHTML = '<h1>Dojo Sidebar</h1>';
+
+      var tab2 = this.sideBar.createTab({
+        tabIcon: 'fa-user'
+      });
+      tab2.containerNode.innerHTML = '<h1>User</h1>';
+
+      //this.sideBar.openTab(tab1);
 
       this.search = new Geocoder({
         map: this.map,
