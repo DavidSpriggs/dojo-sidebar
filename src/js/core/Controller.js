@@ -54,12 +54,17 @@ define([
       var tab1 = this.sideBar.createTab({
         tabIcon: 'fa-bars'
       });
-      tab1.containerNode.innerHTML = '<h1>Dojo Sidebar</h1>';
+      tab1.containerNode.innerHTML = '<h1>Dojo Sidebar</h1><div>A responsive sidebar for Esri Mapping apps.</div>';
 
       var tab2 = this.sideBar.createTab({
         tabIcon: 'fa-user'
       });
       tab2.containerNode.innerHTML = '<h1>User</h1>';
+
+      var tab3 = this.sideBar.createTab({
+        tabIcon: 'fa-gear'
+      });
+      tab3.containerNode.innerHTML = '<h1>Settings</h1>';
 
       //this.sideBar.openTab(tab1);
 
