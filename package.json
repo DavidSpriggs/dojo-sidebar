@@ -26,7 +26,9 @@
     "grunt-esri-slurp": "*",
     "intern": "*",
     "grunt-exec": "*",
-    "grunt-bower-install-simple": "*"
+    "grunt-bower-install-simple": "*",
+    "grunt-dojo": "*",
+    "uglify-js": "^2.4.15"
   },
   "engine": "node >= 0.10"
 }

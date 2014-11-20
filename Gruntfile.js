@@ -190,6 +190,10 @@ module.exports = function(grunt) {
       'dev-stylesheets': {
         files: [sourceFolder + '/**/*.styl'],
         tasks: ['dev-stylesheets']
+      },
+      stylusVarsChanged: {
+        files: [sourceFolder + 'css/variables.style', sourceFolder + 'css/mixins.style'],
+        tasks: ['stylus:dev']
       }
     },
 
@@ -281,6 +285,28 @@ module.exports = function(grunt) {
           suites: ['tests/unit/example']
         }
       }
+    },
+    dojo: {
+      prod: {
+        options: {
+          // You can also specify options to be used in all your tasks
+          profiles: ['profiles/build.profile.js'] // Profile for build
+        }
+      },
+      stage: {
+        options: {
+          // You can also specify options to be used in all your tasks
+          profiles: ['profiles/stage.build.profile.js', 'profiles/build.profile.js'] // Profile for build
+        }
+      },
+      options: {
+        // You can also specify options to be used in all your tasks
+        dojo: 'dev/js/libs/dojo/dojo.js', // Path to dojo.js file in dojo source
+        load: 'build', // Optional: Utility to bootstrap (Default: 'build')
+        releaseDir: './dist',
+        //require: 'dev/app/run.js', // Optional: Module to require for the build (Default: nothing)
+        basePath: './dev/js/libs/'
+      }
     }
   });
 
@@ -301,6 +327,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('intern');
   grunt.loadNpmTasks('grunt-bower-install-simple');
+  grunt.loadNpmTasks('grunt-dojo');
 
   // Development Tasks
   grunt.registerTask('dev-assets', 'Copies the assets', ['newer:copy:dev']);
