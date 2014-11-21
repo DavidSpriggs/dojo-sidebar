@@ -41,13 +41,13 @@ module.exports = function(grunt) {
         cwd: buildFolder,
         dest: buildFolder,
         expand: true,
-        src: ['**/*.css']
+        src: ['**/*.css', '!' + developmentFolder + '/js/libs/**']
       },
       dev: {
         cwd: developmentFolder,
         dest: developmentFolder,
         expand: true,
-        src: ['**/*.css']
+        src: ['**/*.css', '!' + developmentFolder + '/js/libs/**']
       }
     },
 
