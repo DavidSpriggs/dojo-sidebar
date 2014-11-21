@@ -1,9 +1,13 @@
+/*jshint unused:false*/
 define([
   'esri/map',
   'esri/dijit/HomeButton',
   'esri/dijit/LocateButton',
   'esri/dijit/Geocoder',
   'esri/dijit/BasemapToggle',
+  'esri/dijit/Directions',
+  'esri/IdentityManager',
+  'esri/units',
 
   'put-selector/put',
 
@@ -13,7 +17,7 @@ define([
 
   'dojo/domReady!'
 ], function(
-  Map, HomeButton, LocateButton, Geocoder, BasemapToggle,
+  Map, HomeButton, LocateButton, Geocoder, BasemapToggle, Directions, IdentityManager, units,
   put,
   lang,
   Sidebar
@@ -62,9 +66,18 @@ define([
       tab2.containerNode.innerHTML = '<h1>User</h1>';
 
       var tab3 = this.sideBar.createTab({
-        tabIcon: 'fa-gear'
+        tabIcon: 'fa-car'
       });
-      tab3.containerNode.innerHTML = '<h1>Settings</h1>';
+      //tab3.containerNode.innerHTML = '<h1>Settings</h1>';
+      this.directions = new Directions({
+        map: this.map,
+        routeTaskUrl: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route',
+        routeParams: {
+          directionsLanguage: 'en-US',
+          directionsLengthUnits: units.MILES
+        }
+      }, put(tab3.containerNode, 'h1 $ < div', 'Directions'));
+      this.directions.startup();
 
       //this.sideBar.openTab(tab1);
 
