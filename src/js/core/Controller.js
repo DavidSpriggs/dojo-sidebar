@@ -11,19 +11,21 @@ define([
 
   'put-selector/put',
 
+  'dojo/_base/declare',
   'dojo/_base/lang',
 
-  'widgets/Sidebar',
-
-  'dojo/domReady!'
+  'widgets/Sidebar'
 ], function(
   Map, HomeButton, LocateButton, Geocoder, BasemapToggle, Directions, IdentityManager, units,
+
   put,
-  lang,
+
+  declare, lang,
+
   Sidebar
 ) {
-  return {
-    startup: function(config) {
+  return declare(null, {
+    constructor: function(config) {
       this.config = config;
       if (this.config.debug) {
         window.app = this;
@@ -37,15 +39,10 @@ define([
         basemap: 'streets'
       });
       this.map.on('load', lang.hitch(this, 'initWidgets')); //waint untill the map is loaded before creating
-      //this.initWidgets();
     },
     initWidgets: function() {
       //create controls div
-      //this.controlsNode = put(this.map.root, 'div.topLeftControls div.sideBar+div.topLeftMapControls+div.clear<');
-      //this.controlsNode = put(this.map.root, 'div.topLeftControls');
-      //this.sideBarNode = put(this.map.root, 'div.sideBar div.tabs<');
       this.mapControlsNode = put(this.map.root, 'div.mapControls.sidebar-map');
-      // put(this.controlsNode, 'div.clear');
       //move the slider into the controls div
       put(this.mapControlsNode, '>', this.map._slider);
 
@@ -55,6 +52,7 @@ define([
       }, put(this.map.root, 'div'));
       this.sideBar.startup();
 
+      //add tabs to sidebar
       var tab1 = this.sideBar.createTab({
         tabIcon: 'fa-bars'
       });
@@ -68,7 +66,7 @@ define([
       var tab3 = this.sideBar.createTab({
         tabIcon: 'fa-car'
       });
-      //tab3.containerNode.innerHTML = '<h1>Settings</h1>';
+
       this.directions = new Directions({
         map: this.map,
         routeTaskUrl: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route',
@@ -81,6 +79,7 @@ define([
 
       //this.sideBar.openTab(tab1);
 
+      //create other map widgets
       this.search = new Geocoder({
         map: this.map,
         autoComplete: true
@@ -104,5 +103,5 @@ define([
       }, put(this.map.root, 'div.basemapToggle div'));
       this.basemaToggle.startup();
     }
-  };
+  });
 });

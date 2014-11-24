@@ -303,9 +303,9 @@ module.exports = function(grunt) {
         // You can also specify options to be used in all your tasks
         dojo: 'dev/js/libs/dojo/dojo.js', // Path to dojo.js file in dojo source
         load: 'build', // Optional: Utility to bootstrap (Default: 'build')
-        releaseDir: './dist',
-        //require: 'dev/app/run.js', // Optional: Module to require for the build (Default: nothing)
-        basePath: './dev/js/libs/'
+        releaseDir: '../dist',
+        require: './dev/js/core/bootstrap.js', // Optional: Module to require for the build (Default: nothing)
+        basePath: './dev'
       }
     }
   });

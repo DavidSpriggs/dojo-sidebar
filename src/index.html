@@ -12,7 +12,7 @@
         <link rel="Stylesheet" type="text/css" href="css/dojo/flat.css" />
         <!--  <link rel="Stylesheet" type="text/css" href="css/dgrid/css/dgrid.css" />
         <link rel="Stylesheet" type="text/css" href="css/dgrid/css/skins/skin.css" /> -->
-        <link rel="stylesheet" type='text/css' href="//js.arcgis.com/3.11compact/esri/css/esri.css">
+        <link rel="stylesheet" type='text/css' href="//js.arcgis.com/3.11/esri/css/esri.css">
         <link rel="Stylesheet" type="text/css" href="css/esri/css/esri_custom.css" />
         <link rel="Stylesheet" type="text/css" href="css/main.css" />
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -21,55 +21,7 @@
         <![endif]-->
     </head>
     <body>
-        <script type="text/javascript">
-            var dojoConfig = {
-                async: true,
-                packages: [{
-                    name: 'core',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/core'
-                },{
-                    name: 'config',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/config'
-                },{
-                    name: 'widgets',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/widgets'
-                },{
-                    name: 'dojo',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dojo'
-                },{
-                    name: 'dijit',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dijit'
-                },{
-                    name: 'dojox',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dojox'
-                },{
-                    name: 'dgrid',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/dgrid'
-                },{
-                    name: 'esri',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/esri'
-                },{
-                    name: 'put-selector',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/put-selector'
-                },{
-                    name: 'xstyle',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/libs/xstyle'
-                }]
-            };
-        </script>
-        <script type="text/javascript" src="js/libs/dojo/dojo.js"></script>
-        <script type="text/javascript">
-            // get the config file from the url if present
-            var config = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
-            if (q && q.length > 0) {
-                config = q[1];
-                if(config.indexOf('/') < 0) {
-                    config = 'config/' + config;
-                }
-            }
-            require(['core/Controller', config], function(Controller, config){
-                Controller.startup(config);
-            });
-        </script>
+        <script data-dojo-config="isDebug:true" src="js/libs/dojo/dojo.js"></script>
+        <script src="js/core/bootstrap.js"></script>
     </body>
 </html>

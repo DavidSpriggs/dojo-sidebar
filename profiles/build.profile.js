@@ -7,7 +7,7 @@ var amdTag = function(filename, mid) {
 };
 
 var profile = {
-    basePath: './dev/js/libs/',
+    basePath: '../dev',
     action: 'release',
     cssOptimize: 'comments',
     mini: true,
