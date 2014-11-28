@@ -69,6 +69,13 @@ define([
     initLayer: function (layer, Layer) {
       //create layer
       var l = new Layer(layer.url, layer.options);
+      //pre and on load methods
+      if (layer.preLoad) {
+        layer.preLoad(l);
+      }
+      if (layer.onLoad) {
+        l.on('load', lang.hitch(l, layer.onLoad));
+      }
       //add layer to layer config in the model
       layer.layer = l;
       //unshift instead of push to keep layer ordering on map intact

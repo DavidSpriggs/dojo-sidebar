@@ -1,16 +1,21 @@
-//the model
 define([
     'dojo/_base/lang',
     'esri/config',
     'esri/tasks/GeometryService',
     'esri/layers/ImageParameters',
-    'esri/InfoTemplate'
+    'esri/InfoTemplate',
+    'esri/Color',
+    'esri/symbols/SimpleMarkerSymbol',
+    'esri/renderers/SimpleRenderer'
 ], function (
     lang,
     esriConfig,
     GeometryService,
     ImageParameters,
-    InfoTemplate
+    InfoTemplate,
+    Color,
+    SimpleMarkerSymbol,
+    SimpleRenderer
 ) {
 
     //esri config
@@ -49,6 +54,27 @@ define([
                 opacity: 1.0,
                 visible: true,
                 imageParameters: imageParams
+            }
+        }, {
+            type: 'esri/layers/CSVLayer',
+            url: './js/config/data/lasar_sites.csv',
+            options: {
+                id: 'LasarSites',
+                opacity: 1.0,
+                visible: true,
+                latitudeFieldName: 'Decimal_Lat',
+                longitudeFieldName: 'Decimal_long',
+                infoTemplate: new InfoTemplate()
+            },
+            //preLoad: function (layer) {
+                //
+            //},
+            onLoad: function (r) {
+                var layer = r.layer;
+                var orangeRed = new Color([238, 69, 0, 0.5]);
+                var marker = new SimpleMarkerSymbol('solid', 15, null, orangeRed);
+                var renderer = new SimpleRenderer(marker);
+                layer.setRenderer(renderer);
             }
         }]
     };
