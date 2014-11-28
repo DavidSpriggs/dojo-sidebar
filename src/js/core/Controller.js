@@ -12,44 +12,78 @@ define([
   'put-selector/put',
 
   'dojo/_base/declare',
+  'dojo/Stateful',
   'dojo/_base/lang',
+  'dojo/_base/array',
+  'dojo/on',
 
   'widgets/Sidebar'
-], function(
+], function (
   Map, HomeButton, LocateButton, Geocoder, BasemapToggle, Directions, IdentityManager, units,
 
   put,
 
-  declare, lang,
+  declare, Stateful, lang, array, on,
 
   Sidebar
 ) {
   return declare(null, {
-    constructor: function(config) {
-      this.config = config;
-      if (this.config.debug) {
+    constructor: function (config) {
+      //create the application Model
+      var Model = declare(Stateful);
+      this.model = new Model(config);
+      //enable debugging
+      if (this.model.debug === true) {
         window.app = this;
       }
+      //start w/ the map
       this.initMap();
     },
-    initMap: function() {
-      this.map = new Map(put(document.body, 'div.map'), { //create a div in the body and create an esri map in it
-        center: [-56.049, 38.485],
-        zoom: 3,
-        basemap: 'streets'
-      });
-      this.map.on('load', lang.hitch(this, 'initWidgets')); //waint untill the map is loaded before creating
+    initMap: function () {
+      //clone map config
+      this.model._mapConfig = lang.clone(this.model.map);
+      //create a div in the body, create an esri map in it and set `map` property
+      this.model.set('map', new Map(put(document.body, 'div.map'), this.model.map || {})); 
+      //wait until the map is loaded before continuing
+      this.model.map.on('load', lang.hitch(this, 'initLayers'));
     },
-    initWidgets: function() {
+    initLayers: function () {
+      if (this.model.layers && this.model.layers.length > 0) {
+        this.layers = [];
+        //build array of layer types, require them, create layers and add to map
+        var modules = [];
+        array.forEach(this.model.layers, function (layer) {
+          modules.push(layer.type);
+        });
+        require(modules, lang.hitch(this, function () {
+          array.forEach(this.model.layers, function (layer) {
+            require([layer.type], lang.hitch(this, 'initLayer', layer));
+          }, this);
+          on.once(this.model.map, 'layers-add-result', lang.hitch(this, 'initWidgets'));
+          this.model.map.addLayers(this.layers);
+        }));
+      } else {
+        this.initWidgets();
+      }
+    },
+    initLayer: function (layer, Layer) {
+      //create layer
+      var l = new Layer(layer.url, layer.options);
+      //add layer to layer config in the model
+      layer.layer = l;
+      //unshift instead of push to keep layer ordering on map intact
+      this.layers.unshift(l);
+    },
+    initWidgets: function () {
       //create controls div
-      this.mapControlsNode = put(this.map.root, 'div.mapControls.sidebar-map');
+      this.mapControlsNode = put(this.model.map.root, 'div.mapControls.sidebar-map');
       //move the slider into the controls div
-      put(this.mapControlsNode, '>', this.map._slider);
+      put(this.mapControlsNode, '>', this.model.map._slider);
 
       //create the sidebar widget
       this.sideBar = new Sidebar({
         collapseSyncNode: this.mapControlsNode
-      }, put(this.map.root, 'div'));
+      }, put(this.model.map.root, 'div'));
       this.sideBar.startup();
 
       //add tabs to sidebar
@@ -68,7 +102,7 @@ define([
       });
 
       this.directions = new Directions({
-        map: this.map,
+        map: this.model.map,
         routeTaskUrl: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route',
         routeParams: {
           directionsLanguage: 'en-US',
@@ -81,26 +115,26 @@ define([
 
       //create other map widgets
       this.search = new Geocoder({
-        map: this.map,
+        map: this.model.map,
         autoComplete: true
       }, put(this.mapControlsNode, 'div.search div')); //create the search bar in the controls div
       this.search.startup();
 
       this.home = new HomeButton({
-        map: this.map
+        map: this.model.map
       }, put(this.mapControlsNode, 'div.homeButton div')); //create the home button in the controls div
       this.home.startup();
 
       this.geoLocate = new LocateButton({
-        map: this.map,
+        map: this.model.map,
         useTracking: false
       }, put(this.mapControlsNode, 'div.locateButton div')); //create the locate button in the controls div
       this.geoLocate.startup();
 
       this.basemaToggle = new BasemapToggle({
-        map: this.map,
+        map: this.model.map,
         basemap: 'hybrid'
-      }, put(this.map.root, 'div.basemapToggle div'));
+      }, put(this.model.map.root, 'div.basemapToggle div'));
       this.basemaToggle.startup();
     }
   });
