@@ -6,7 +6,8 @@ define([
     'esri/InfoTemplate',
     'esri/Color',
     'esri/symbols/SimpleMarkerSymbol',
-    'esri/renderers/SimpleRenderer'
+    'esri/renderers/SimpleRenderer',
+    'esri/units'
 ], function (
     lang,
     esriConfig,
@@ -15,7 +16,8 @@ define([
     InfoTemplate,
     Color,
     SimpleMarkerSymbol,
-    SimpleRenderer
+    SimpleRenderer,
+    units
 ) {
 
     //esri config
@@ -35,7 +37,7 @@ define([
             zoom: 5,
             sliderStyle: 'small'
         },
-        layers: [{
+        layerInfos: [{
             type: 'esri/layers/FeatureLayer',
             url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0',
             options: {
@@ -66,15 +68,81 @@ define([
                 longitudeFieldName: 'Decimal_long',
                 infoTemplate: new InfoTemplate()
             },
-            //preLoad: function (layer) {
-                //
-            //},
             onLoad: function (r) {
                 var layer = r.layer;
                 var orangeRed = new Color([238, 69, 0, 0.5]);
                 var marker = new SimpleMarkerSymbol('solid', 15, null, orangeRed);
                 var renderer = new SimpleRenderer(marker);
                 layer.setRenderer(renderer);
+            }
+        }],
+        widgetInfos: [{
+            type: 'esri/dijit/Geocoder',
+            placeAt: 'mapControls',
+            className: 'search',
+            options: {
+                map: true,
+                autoComplete: true
+            }
+        }, {
+            type: 'esri/dijit/HomeButton',
+            placeAt: 'mapControls',
+            className: 'homeButton',
+            options: {
+                map: true
+            }
+        }, {
+            type: 'esri/dijit/LocateButton',
+            placeAt: 'mapControls',
+            className: 'locateButton',
+            options: {
+                map: true
+            }
+        }, {
+            type: 'esri/dijit/BasemapToggle',
+            placeAt: 'map',
+            className: 'basemapToggle',
+            options: {
+                map: true,
+                basemap: 'hybrid'
+            }
+        }, {
+            type: 'dijit/layout/ContentPane',
+            placeAt: 'tab',
+            tabOptions: {
+                tabIcon: 'fa-bars'
+            },
+            options: {
+                content: '<h1>Dojo Sidebar</h1><div>A responsive sidebar for Esri Mapping apps.</div>'
+            }
+        }, {
+            type: 'esri/dijit/Directions',
+            placeAt: 'tab',
+            tabOptions: {
+                tabIcon: 'fa-car',
+                tabTitle: 'Directions'
+            },
+            options: {
+                map: true,
+                routeTaskUrl: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route',
+                routeParams: {
+                    directionsLanguage: 'en-US',
+                    directionsLengthUnits: units.MILES
+                }
+            }
+        }, {
+            type: 'esri/dijit/Legend',
+            placeAt: 'tab',
+            tabOptions: {
+                tabIcon: 'fa-list',
+                tabTitle: 'Legend'
+            },
+            options: {
+                map: true,
+                layerInfos: [{
+                    layer: 'DamageAssessment',
+                    title: 'Yo...Damage Assessment'
+                }]
             }
         }]
     };
