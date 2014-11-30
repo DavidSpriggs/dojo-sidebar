@@ -47,7 +47,7 @@
 	// 	}
 	// }
 
-	//bootstarp our application controller
+	//bootstrap our application controller
 	/* jshint nonew: false */
 	require(dojoConfig, ['core/Controller', 'config/viewer', 'dojo/domReady!'], function(Controller, config) {
 		new Controller(config);
