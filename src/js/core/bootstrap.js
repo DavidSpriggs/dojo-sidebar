@@ -14,25 +14,25 @@
 			location: './js/widgets'
 		}, {
 			name: 'dojo',
-			location: './js/libs/dojo'
+			location: './js/dojo'
 		}, {
 			name: 'dijit',
-			location: './js/libs/dijit'
+			location: './js/dijit'
 		}, {
 			name: 'dojox',
-			location: './js/libs/dojox'
+			location: './js/dojox'
 		}, {
 			name: 'dgrid',
-			location: './js/libs/dgrid'
+			location: './js/dgrid'
 		}, {
 			name: 'esri',
-			location: './js/libs/esri'
+			location: './js/esri'
 		}, {
 			name: 'put-selector',
-			location: './js/libs/put-selector'
+			location: './js/put-selector'
 		}, {
 			name: 'xstyle',
-			location: './js/libs/xstyle'
+			location: './js/xstyle'
 		}]
 	};
 

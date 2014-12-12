@@ -7,7 +7,7 @@ var amdTag = function(filename, mid) {
 };
 
 var profile = {
-    basePath: '../dev',
+    basePath: '../src',
     action: 'release',
     cssOptimize: 'comments',
     mini: true,
@@ -21,6 +21,7 @@ var profile = {
                 'dojo/i18n',
                 'dojo/domReady',
                 'core/Controller',
+                'core/bootstrap',
                 'config/viewer',
                 'dojox/gfx/path',
                 'dojox/gfx/svg',
@@ -48,10 +49,10 @@ var profile = {
         // We aren’t loading tests in production
         'dojo-test-sniff': 0
     },
-    packages: [{
-        name: 'esri',
-        resourceTags: amdTag
-    }],
+    // packages: [{
+    //     name: 'esri',
+    //     resourceTags: amdTag
+    // }],
     // this is to make sure that the widget templates get built into the layer file.
     userConfig: {
         packages: ['core', 'dijit', 'dojox', 'config', 'widgets', 'esri', 'dgrid', 'xstyle', 'put-selector']

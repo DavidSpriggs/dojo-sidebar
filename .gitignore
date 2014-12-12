@@ -1,5 +1,14 @@
 dist
 dev
+src/css
+src/js/esri
+src/js/dojo
+src/js/dijit
+src/js/dojox
+src/js/dgrid
+src/js/util
+src/js/put-selector
+src/js/xstyle
 
 # Logs
 logs

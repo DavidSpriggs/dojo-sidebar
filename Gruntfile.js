@@ -36,21 +36,6 @@ module.exports = function(grunt) {
         ' */'
     },
 
-    autoprefixer: {
-      build: {
-        cwd: buildFolder,
-        dest: buildFolder,
-        expand: true,
-        src: ['**/*.css', '!' + developmentFolder + '/js/libs/**']
-      },
-      dev: {
-        cwd: developmentFolder,
-        dest: developmentFolder,
-        expand: true,
-        src: ['**/*.css', '!' + developmentFolder + '/js/libs/**']
-      }
-    },
-
     clean: {
       build: {
         src: [buildFolder]
@@ -74,8 +59,8 @@ module.exports = function(grunt) {
         src: ['**', '!**/*.styl', '!**/*.md']
       },
       dev: {
-        cwd: sourceFolder,
-        dest: developmentFolder,
+        cwd: sourceFolder + '/stylus',
+        dest: sourceFolder + '/css',
         expand: true,
         src: ['**', '!**/*.styl', '!**/*.md']
       }
@@ -133,8 +118,8 @@ module.exports = function(grunt) {
     stylus: {
       build: {
         files: [{
-          cwd: sourceFolder,
-          dest: buildFolder,
+          cwd: sourceFolder + '/stylus',
+          dest: buildFolder + '/css',
           expand: true,
           ext: '.css',
           src: ['**/*.styl', '!**/mixins.styl', '!**/variables.styl']
@@ -146,8 +131,21 @@ module.exports = function(grunt) {
       },
       dev: {
         files: [{
-          cwd: sourceFolder,
-          dest: developmentFolder,
+          cwd: sourceFolder + '/stylus',
+          dest: sourceFolder + '/css',
+          expand: true,
+          ext: '.css',
+          src: ['**/*.styl', '!**/mixins.styl', '!**/variables.styl']
+        }],
+        options: {
+          compress: false,
+          linenos: false
+        }
+      },
+      dev_widgets: {
+        files: [{
+          cwd: sourceFolder + '/js',
+          dest: sourceFolder + '/js',
           expand: true,
           ext: '.css',
           src: ['**/*.styl', '!**/mixins.styl', '!**/variables.styl']
@@ -179,20 +177,20 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      'dev-assets': {
-        files: [sourceFolder + '/**', '!' + sourceFolder + '/**/*.styl'],
-        tasks: ['dev-assets']
-      },
-      'dev-scripts': {
-        files: [sourceFolder + '/**/*.js'],
-        tasks: ['dev-scripts']
-      },
+      // 'dev-assets': {
+      //   files: [sourceFolder + '/**', '!' + sourceFolder + '/**/*.styl'],
+      //   tasks: ['dev-assets']
+      // },
+      // 'dev-scripts': {
+      //   files: [sourceFolder + '/**/*.js'],
+      //   tasks: ['dev-scripts']
+      // },
       'dev-stylesheets': {
         files: [sourceFolder + '/**/*.styl'],
         tasks: ['dev-stylesheets']
       },
       stylusVarsChanged: {
-        files: [sourceFolder + 'css/variables.style', sourceFolder + 'css/mixins.style'],
+        files: [sourceFolder + 'stylus/variables.style', sourceFolder + 'stylus/mixins.style'],
         tasks: ['stylus:dev']
       }
     },
@@ -209,7 +207,7 @@ module.exports = function(grunt) {
     'bower-install-simple': {
       options: {
         color: true,
-        directory: 'dev/js/libs'
+        directory: 'src/js'
       },
       prod: {
         options: {
@@ -231,10 +229,10 @@ module.exports = function(grunt) {
         options: {
           beautify: true
         },
-        dest: 'dev/js/libs/esri'
+        dest: 'src/js/esri'
       },
       travis: {
-        dest: 'dev/js/libs/esri'
+        dest: 'src/js/esri'
       }
     },
 
@@ -242,7 +240,7 @@ module.exports = function(grunt) {
       dev: {
         options: {
           port: 3000,
-          base: developmentFolder,
+          base: sourceFolder,
           hostname: '*',
           middleware: middleware
         }
@@ -301,17 +299,16 @@ module.exports = function(grunt) {
       },
       options: {
         // You can also specify options to be used in all your tasks
-        dojo: 'dev/js/libs/dojo/dojo.js', // Path to dojo.js file in dojo source
+        dojo: 'src/js/dojo/dojo.js', // Path to dojo.js file in dojo source
         load: 'build', // Optional: Utility to bootstrap (Default: 'build')
-        releaseDir: '../dist',
-        require: './dev/js/core/bootstrap.js', // Optional: Module to require for the build (Default: nothing)
-        basePath: './dev'
+        releaseDir: '../dist/js',
+        require: './src/js/core/bootstrap.js', // Optional: Module to require for the build (Default: nothing)
+        basePath: './src'
       }
     }
   });
 
   // Load Tasks
-  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -332,7 +329,7 @@ module.exports = function(grunt) {
   // Development Tasks
   grunt.registerTask('dev-assets', 'Copies the assets', ['newer:copy:dev']);
   grunt.registerTask('dev-scripts', 'Lints the JavaScript files.', ['newer:jshint:dev']);
-  grunt.registerTask('dev-stylesheets', 'Creates the stylesheets.', ['newer:stylus:dev', 'newer:autoprefixer:dev']);
+  grunt.registerTask('dev-stylesheets', 'Creates the stylesheets.', ['newer:stylus:dev' /*, 'newer:autoprefixer:dev'*/ ]);
 
   // Production Build Tasks
   grunt.registerTask('assets', 'Copies and compiles the assets.', ['copy:build', 'htmlmin']);
@@ -345,5 +342,5 @@ module.exports = function(grunt) {
   grunt.registerTask('clean-dev', 'Cleans the development build directory', ['clean:dev']);
   grunt.registerTask('setup', 'Gets JS dependencies and slurps esri js.', ['bower-install-simple:dev', 'esri_slurp:dev']);
   grunt.registerTask('test', 'Run unit tests with intern', ['intern:dev']);
-  grunt.registerTask('default', 'Watches the project for changes, and automatically performs a development build.', ['dev', 'connect:dev', 'open:dev_browser', 'watch']);
+  grunt.registerTask('default', 'Watches the project for changes, and automatically performs a development build.', ['stylus:dev', 'stylus:dev_widgets', 'copy:dev', 'connect:dev', 'open:dev_browser', 'watch']);
 };
