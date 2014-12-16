@@ -52,6 +52,7 @@
   font-size: 12pt;
   overflow: hidden;
   transition: all 80ms;
+  cursor: pointer;
 }
 .sidebar-tabs > li:hover {
   color: #000;
@@ -69,6 +70,11 @@
   color: inherit;
   text-decoration: none;
   text-align: center;
+}
+.sidebar-pane-title {
+  margin: 6px 0;
+  font-size: 150%;
+  font-weight: 600;
 }
 .sidebar-content {
   position: absolute;
