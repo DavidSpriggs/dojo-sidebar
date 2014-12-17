@@ -7,6 +7,7 @@ define([
     declare, Stateful, lang, array
 ) {
     var model = {
+        debug: false,
         mapConfig: null,
         mapExtent: null,
         mapLod: null,
@@ -25,13 +26,21 @@ define([
             var filter = array.filter(this.layerInfos, function (layerInfo) {
                 return layerInfo.id === id;
             });
-            return filter[0];
+            if (filter[0]) {
+                return filter[0];
+            } else {
+                return null;
+            }
         },
         getWidgetInfo: function (id) {
             var filter = array.filter(this.widgetInfos, function (widgetInfo) {
                 return widgetInfo.id === id;
             });
-            return filter[0];
+            if (filter[0]) {
+                return filter[0];
+            } else {
+                return null;
+            }
         }
     });
 
