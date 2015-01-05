@@ -8,6 +8,7 @@ define([
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/on',
+    'dojo/aspect',
 
     'core/models/appModel',
     'core/models/layerModel',
@@ -19,7 +20,7 @@ define([
 
     put,
 
-    declare, lang, array, on,
+    declare, lang, array, on, aspect,
 
     appModel, LayerModel, WidgetModel,
 
@@ -33,6 +34,7 @@ define([
             if (config.debug === true) {
                 window.app = this;
                 appModel.set('debug', true);
+                this.model = appModel;
             }
             //start w/ the map
             this.initMap(config);
@@ -40,13 +42,14 @@ define([
         initMap: function (config) {
             //clone map config
             appModel.set('mapConfig', lang.clone(config.map));
-            //create a div in the body, create an esri map in it and set `map` property
+            //create a div in the body, create an esri map in it
             var map = new Map(put(document.body, 'div.map'), config.map || {});
+            //sets model's `map` property
             appModel.set('map', map);
-            //wait until the map is loaded before continuing
+            //appModel map on load wires up model map events
+            map.on('load', lang.hitch(appModel, 'mapLoad'));
+            //wait until the map is loaded before continuing to init app
             map.on('load', lang.hitch(this, 'initLayers', config, map));
-            //map events
-            map.on('extent-change', lang.hitch(this, 'mapExtentChangeHandler'));
         },
         initLayers: function (config, map) {
             if (config.layerInfos && config.layerInfos.length > 0) {
@@ -174,10 +177,6 @@ define([
             widget.set('id', w.id);
             //widget model back to array at i
             appModel.widgetInfos[i] = widget;
-        },
-        mapExtentChangeHandler: function (evt) {
-            appModel.set('mapExtent', evt.extent);
-            appModel.set('mapLod', evt.lod);
         }
     });
 });

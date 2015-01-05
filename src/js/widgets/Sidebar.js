@@ -4,6 +4,7 @@ define([
 	'dojo/_base/lang',
 	'dojo/_base/array',
 	'dojo/dom-class',
+	'dojo/dom-geometry',
 	'dojo/on',
 
 	'dijit/_WidgetBase',
@@ -11,13 +12,17 @@ define([
 
 	'put-selector/put',
 
+	'core/models/appModel',
+
 	'xstyle/css!./css/Sidebar.css'
-], function(
-	declare, template, lang, array, domClass, on,
+], function (
+	declare, template, lang, array, domClass, domGeom, on,
 
 	_WidgetBase, _TemplatedMixin,
 
-	put
+	put,
+
+	appModel
 ) {
 	return declare([_WidgetBase, _TemplatedMixin], {
 		templateString: template,
@@ -26,17 +31,19 @@ define([
 			tabIcon: 'fa-bars'
 		},
 		collapseSyncNode: null,
-		postCreate: function() {
+		postCreate: function () {
 			this.inherited(arguments);
 			this.init();
 		},
-		init: function() {
+		init: function () {
 			this.tabs = [];
 			if (this.collapseSyncNode && domClass.contains(this.domNode, 'collapsed')) {
 				put(this.collapseSyncNode, '.collapsed');
 			}
+			//wire up css transition callback covering all event name bases
+			on(this.collapseSyncNode, 'transitionend, oTransitionEnd, webkitTransitionEnd, animationend, webkitAnimationEnd', lang.hitch(this, '_setViewPadding'));
 		},
-		createTab: function(params) {
+		createTab: function (params) {
 			params = params || this.defaultTabParams;
 			var tab = {
 				buttonNode: null,
@@ -52,15 +59,24 @@ define([
 			//return the tabs pane node
 			return tab;
 		},
-		tabClickHandler: function(tab) {
+		tabClickHandler: function (tab) {
 			if (domClass.contains(tab.buttonNode, 'active')) {
 				this.closeTab(tab);
 			} else {
 				this.openTab(tab);
 			}
 		},
-		openTab: function(tab) {
-			array.forEach(this.tabs, function(tab) {
+		_setViewPadding: function () {
+			var dims = domGeom.getContentBox(this.domNode);
+			appModel.set('viewPadding', {
+				top: 0,
+				left: dims.w + dims.l,
+				right: 0,
+				bottom: 0
+			});
+		},
+		openTab: function (tab) {
+			array.forEach(this.tabs, function (tab) {
 				put(tab.buttonNode, '!active');
 				put(tab.containerNode, '!active');
 			});
@@ -71,8 +87,8 @@ define([
 				put(this.collapseSyncNode, '!collapsed');
 			}
 		},
-		closeTab: function() {
-			array.forEach(this.tabs, function(tab) {
+		closeTab: function () {
+			array.forEach(this.tabs, function (tab) {
 				put(tab.buttonNode, '!active');
 				put(tab.containerNode, '!active');
 			});
