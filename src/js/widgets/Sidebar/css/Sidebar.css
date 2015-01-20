@@ -11,6 +11,13 @@
 .sidebar.collapsed {
   width: 40px;
 }
+.sidebar .closeIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
 @media (min-width: 768px) {
   .sidebar {
     left: 10px;
