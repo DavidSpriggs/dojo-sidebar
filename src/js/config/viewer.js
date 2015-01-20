@@ -116,6 +116,7 @@ define([
                     directionsLanguage: 'en-US',
                     directionsLengthUnits: units.MILES
                 },
+                showClearButton: true,
                 active: false //for 3.12, starts active by default
             }
         }, {

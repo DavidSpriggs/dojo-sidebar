@@ -223,7 +223,7 @@ module.exports = function(grunt) {
 
     esri_slurp: {
       options: {
-        version: '3.11'
+        version: '3.12'
       },
       dev: {
         options: {
