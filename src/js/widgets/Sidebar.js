@@ -1,6 +1,6 @@
 define([
 	'dojo/_base/declare',
-	'dojo/text!./templates/Sidebar.html',
+	'dojo/text!./sidebar/templates/Sidebar.html',
 	'dojo/_base/lang',
 	'dojo/_base/array',
 	'dojo/dom-class',
@@ -14,8 +14,8 @@ define([
 
 	'core/models/appModel',
 
-	'xstyle/css!./css/Sidebar.css'
-], function (
+	'xstyle/css!./Sidebar/css/Sidebar.css'
+], function(
 	declare, template, lang, array, domClass, domGeom, on,
 
 	_WidgetBase, _TemplatedMixin,
@@ -28,14 +28,15 @@ define([
 		templateString: template,
 		baseClass: 'sidebar',
 		defaultTabParams: {
-			tabIcon: 'fa-bars'
+			tabIcon: 'fa-bars',
+			tabTitle: 'Title'
 		},
 		collapseSyncNode: null,
-		postCreate: function () {
+		postCreate: function() {
 			this.inherited(arguments);
 			this.init();
 		},
-		init: function () {
+		init: function() {
 			this.tabs = [];
 			if (this.collapseSyncNode && domClass.contains(this.domNode, 'collapsed')) {
 				put(this.collapseSyncNode, '.collapsed');
@@ -43,15 +44,20 @@ define([
 			//wire up css transition callback covering all event name bases
 			on(this.collapseSyncNode, 'transitionend, oTransitionEnd, webkitTransitionEnd, animationend, webkitAnimationEnd', lang.hitch(this, '_setViewPadding'));
 		},
-		createTab: function (params) {
-			params = params || this.defaultTabParams;
+		createTab: function(params) {
+			params = lang.mixin(lang.clone(this.defaultTabParams), (params || {}));
 			var tab = {
 				buttonNode: null,
-				containerNode: null
+				containerNode: null,
+				closeBtnNode: null
 			};
 			//create and place dom elements for the tab button and pane
 			tab.buttonNode = put(this.tabsButtonNode, 'li a[role=tab] i.fa.' + params.tabIcon + '<<');
-			tab.containerNode = put(this.tabsContainerNode, 'div.' + this.baseClass + '-pane');
+			tab.containerNode = put(this.tabsContainerNode, 'div.' + this.baseClass + '-pane div.sidebar-pane-title $ <', params.tabTitle);
+			// tab.containerNode = put(this.tabsContainerNode, 'div.' + this.baseClass + '-pane');
+			tab.closeBtnNode = put(tab.containerNode, 'i.fa.fa-times.closeIcon');
+			// listen for the tab close button click
+			on(tab.closeBtnNode, 'click', lang.hitch(this, 'tabClickHandler', tab));
 			// listen for the tab button click
 			on(tab.buttonNode, 'click', lang.hitch(this, 'tabClickHandler', tab));
 			//keep a refrence to this tab
@@ -59,14 +65,14 @@ define([
 			//return the tabs pane node
 			return tab;
 		},
-		tabClickHandler: function (tab) {
+		tabClickHandler: function(tab) {
 			if (domClass.contains(tab.buttonNode, 'active')) {
 				this.closeTab(tab);
 			} else {
 				this.openTab(tab);
 			}
 		},
-		_setViewPadding: function () {
+		_setViewPadding: function() {
 			var dims = domGeom.getContentBox(this.domNode);
 			appModel.set('viewPadding', {
 				top: 0,
@@ -75,8 +81,8 @@ define([
 				bottom: 0
 			});
 		},
-		openTab: function (tab) {
-			array.forEach(this.tabs, function (tab) {
+		openTab: function(tab) {
+			array.forEach(this.tabs, function(tab) {
 				put(tab.buttonNode, '!active');
 				put(tab.containerNode, '!active');
 			});
@@ -87,8 +93,8 @@ define([
 				put(this.collapseSyncNode, '!collapsed');
 			}
 		},
-		closeTab: function () {
-			array.forEach(this.tabs, function (tab) {
+		closeTab: function() {
+			array.forEach(this.tabs, function(tab) {
 				put(tab.buttonNode, '!active');
 				put(tab.containerNode, '!active');
 			});

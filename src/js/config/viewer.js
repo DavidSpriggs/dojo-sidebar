@@ -5,7 +5,7 @@ define([
     'esri/layers/ImageParameters',
     'esri/InfoTemplate',
     'esri/units'
-], function (
+], function(
     lang,
     esriConfig,
     GeometryService,
@@ -50,7 +50,7 @@ define([
                 opacity: 1.0,
                 visible: true,
                 imageParameters: imageParams
-            }//,
+            } //,
             //preLoad: function (layer) {
             //    //called after layer init but before added to map
             //    console.log(layer);
@@ -96,10 +96,11 @@ define([
             type: 'dijit/layout/ContentPane',
             placeAt: 'tab',
             tabOptions: {
-                tabIcon: 'fa-bars'
+                tabIcon: 'fa-bars',
+                tabTitle: 'Dojo Sidebar'
             },
             options: {
-                content: '<h1>Dojo Sidebar</h1><div>A responsive sidebar for Esri Mapping apps.</div>'
+                content: '<div>A responsive sidebar for Esri Mapping apps.</div>'
             }
         }, {
             type: 'esri/dijit/Directions',
@@ -114,7 +115,8 @@ define([
                 routeParams: {
                     directionsLanguage: 'en-US',
                     directionsLengthUnits: units.MILES
-                }
+                },
+                active: false //for 3.12, starts active by default
             }
         }, {
             type: 'esri/dijit/Legend',
