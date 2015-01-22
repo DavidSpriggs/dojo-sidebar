@@ -3,9 +3,10 @@ define([
     'dojo/Stateful',
     'dojo/_base/lang',
     'dojo/_base/array',
-    'dojo/aspect'
-], function(
-    declare, Stateful, lang, array, aspect
+    'dojo/aspect',
+    'dojo/topic'
+], function (
+    declare, Stateful, lang, array, aspect, topic
 ) {
     var model = {
         debug: false,
@@ -26,20 +27,21 @@ define([
     };
 
     var SingletonClass = declare([Stateful], {
-        constructor: function() {
+        constructor: function () {
             lang.mixin(this, model);
         },
-        _mapSetter: function(map) {
+        // custom map setter
+        _mapSetter: function (map) {
             this.map = map;
-            this.map.on('resize', function(evt) {
+            this.map.on('resize', function (evt) {
                 var pnt = evt.target.extent.getCenter();
-                setTimeout(function() {
+                setTimeout(function () {
                     evt.target.centerAt(pnt);
                 }, 100);
             });
         },
         // wire up model map events
-        mapLoad: function(r) {
+        mapLoad: function (r) {
             var map = r.map;
             //wire up extent change handler and defaults
             map.on('extent-change', lang.hitch(this, '_mapExtentChangeHandler'));
@@ -49,7 +51,7 @@ define([
             aspect.before(map, 'setExtent', lang.hitch(this, '_viewPaddingHandler'));
         },
         // return view padded extent
-        _viewPaddingHandler: function(extent) {
+        _viewPaddingHandler: function (extent) {
             var map = this.map,
                 vp = this.viewPadding,
                 w = map.width - vp.left - vp.right,
@@ -63,13 +65,13 @@ define([
             });
             return [result];
         },
-        _mapExtentChangeHandler: function(evt) {
+        _mapExtentChangeHandler: function (evt) {
             this.set('mapExtent', evt.extent);
             this.set('mapLod', evt.lod);
         },
         // get layerInfo by layer id
-        getLayerInfo: function(id) {
-            var filter = array.filter(this.layerInfos, function(layerInfo) {
+        getLayerInfo: function (id) {
+            var filter = array.filter(this.layerInfos, function (layerInfo) {
                 return layerInfo.id === id;
             });
             if (filter[0]) {
@@ -79,14 +81,43 @@ define([
             }
         },
         // get widgetInfo by widget (dijit) id
-        getWidgetInfo: function(id) {
-            var filter = array.filter(this.widgetInfos, function(widgetInfo) {
+        getWidgetInfo: function (id) {
+            var filter = array.filter(this.widgetInfos, function (widgetInfo) {
                 return widgetInfo.id === id;
             });
             if (filter[0]) {
                 return filter[0];
             } else {
                 return null;
+            }
+        },
+
+        // custom setter for debug wires up or removes error handling
+        _debugSetter: function (debug) {
+            this.debug = debug;
+            if (this.debug) {
+                this._errorHandler = topic.subscribe('viewer/error', lang.hitch(this, 'handleError'));
+            } else {
+                if (this._errorHandler) {
+                    this._errorHandler.remove();
+                }
+            }
+        },
+
+        // log errors
+        //    call directly if class/widget includes appModel
+        //    or publish 'viewer/error' topic if not
+        handleError: function (options) {
+            if (this.debug) {
+                if (typeof (console) === 'object') {
+                    for (var option in options) {
+                        if (options.hasOwnProperty(option)) {
+                            console.log(option, options[option]);
+                        }
+                    }
+                }
+            } else {
+                return;
             }
         }
     });
