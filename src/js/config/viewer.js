@@ -1,16 +1,18 @@
 define([
     'dojo/_base/lang',
+
     'esri/config',
-    'esri/tasks/GeometryService',
-    'esri/layers/ImageParameters',
     'esri/InfoTemplate',
+    'esri/layers/ImageParameters',
+    'esri/tasks/GeometryService',
     'esri/units'
-], function(
+], function (
     lang,
+
     esriConfig,
-    GeometryService,
-    ImageParameters,
     InfoTemplate,
+    ImageParameters,
+    GeometryService,
     units
 ) {
 
@@ -31,7 +33,8 @@ define([
             zoom: 5,
             sliderStyle: 'small'
         },
-        layerInfos: [{
+        layerInfos: [
+            /*{
             type: 'esri/layers/FeatureLayer',
             url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0',
             options: {
@@ -61,16 +64,9 @@ define([
             //    console.log(layer);
             //},
             //foo: 'bar' //any custom props obj fnc etc to be mixed into layer model
-        }],
+        }*/
+            ],
         widgetInfos: [{
-            type: 'esri/dijit/Geocoder',
-            placeAt: 'mapControls',
-            className: 'search',
-            options: {
-                map: true,
-                autoComplete: true
-            }
-        }, {
             type: 'esri/dijit/HomeButton',
             placeAt: 'mapControls',
             className: 'homeButton',
@@ -90,17 +86,18 @@ define([
             className: 'basemapToggle',
             options: {
                 map: true,
-                basemap: 'hybrid'
+                basemap: 'satellite'
             }
         }, {
-            type: 'dijit/layout/ContentPane',
+            type: 'esri/dijit/Geocoder',
             placeAt: 'tab',
             tabOptions: {
-                tabIcon: 'fa-bars',
-                tabTitle: 'Dojo Sidebar'
+                tabIcon: 'fa-search',
+                tabTitle: 'Search'
             },
             options: {
-                content: '<div>A responsive sidebar for Esri Mapping apps.</div>'
+                map: true,
+                autoComplete: true
             }
         }, {
             type: 'esri/dijit/Directions',
@@ -123,7 +120,7 @@ define([
             type: 'esri/dijit/Legend',
             placeAt: 'tab',
             tabOptions: {
-                tabIcon: 'fa-list',
+                tabIcon: 'fa-list-ul',
                 tabTitle: 'Legend'
             },
             options: {

@@ -1,16 +1,22 @@
 .sidebar {
     position: absolute;
-    top: 0;
     left: 0;
-    right: 0;
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    width: 100%;
     overflow: hidden;
     z-index: 40;
-    transition: height 500ms;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 }
 .sidebar.collapsed {
-    height: 40px;
+    width: 40px;
+}
+.sidebar .closeIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5em;
+  cursor: pointer;
 }
 @media (min-width: 768px) {
     .sidebar {
@@ -19,74 +25,45 @@
         bottom: 10px;
         transition: width 500ms;
         border-radius: 4px;
-        width: 100%;
-        height: auto;
-   }
-   .sidebar.collapsed {
-       width: 40px;
-       height: auto;
-  }
+    }
 }
 @media (min-width: 768px) and (max-width: 991px) {
     .sidebar {
         width: 305px;
-   }
+    }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     .sidebar {
         width: 390px;
-   }
+    }
 }
 @media (min-width: 1200px) {
     .sidebar {
         width: 460px;
-   }
-}
-.sidebar .closeIcon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 1.5em;
-    cursor: pointer;
+    }
 }
 .sidebar-tabs {
     position: absolute;
     top: 0;
-    width: 100%;
-    height: 40px;
-    margin: 0;
-    padding: 0;
-    background-color: rgba(255, 255, 255, 0.75);
-    z-index: 41;
-}
-.sidebar-tabs.active {
-    background-color: #eee;
-}
-.sidebar-tabs > li {
+    bottom: 0;
     width: 40px;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+.sidebar-tabs > li {
+    width: 100%;
+    height: 40px;
     color: #333;
     font-size: 12pt;
     overflow: hidden;
     transition: all 80ms;
     cursor: pointer;
-    float: right;
 }
-@media (min-width: 768px) {
-    .sidebar-tabs {
-        height: 100%;
-        width: 40px;
-        background-color: #fff;
-   }
-   .sidebar-tabs > li {
-       float: none;
-       width: 100%;
-       height: 40px;
-  }
-  .sidebar-tabs > li:hover {
-      color: #000;
-      background-color: #eee;
- }
+.sidebar-tabs > li:hover {
+    color: #000;
+    background-color: #eee;
 }
 .sidebar-tabs > li.active {
     color: #fff;
@@ -108,30 +85,19 @@
 }
 .sidebar-content {
     position: absolute;
-    left: 0;
+    left: 40px;
     right: 0;
-    top: 40px;
+    top: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.95);
     overflow-x: hidden;
     overflow-y: auto;
 }
 .sidebar-pane {
     display: none;
-    /*bottom: 0;*/
-
-box-sizing: border-box;
+    right: 0;
+    box-sizing: border-box;
     padding: 10px 20px;
-    width: 100%;
-}
-@media (min-width: 768px) {
-    .sidebar-content {
-        left: 40px;
-        top: 0;
-   }
-   .sidebar-pane {
-       right: 0;
-  }
 }
 .sidebar-pane.active {
     display: block;
@@ -139,63 +105,50 @@ box-sizing: border-box;
 @media (min-width: 768px) and (max-width: 991px) {
     .sidebar-pane {
         width: 265px;
-   }
+    }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     .sidebar-pane {
         width: 350px;
-   }
+    }
 }
 @media (min-width: 1200px) {
     .sidebar-pane {
         width: 420px;
-   }
+    }
 }
+
 .sidebar-map {
     left: 50px;
-    transition: all 500ms;
 }
 @media (min-width: 768px) {
     .sidebar-map {
         left: 50px;
-   }
+    }
 }
+
 @media (min-width: 768px) {
     .sidebar-map.collapsed {
         left: 50px;
-   }
+    }
 }
 @media (min-width: 768px) {
     .sidebar-map {
-        /*transition: left 500ms;*/
-   }
+        transition: left 500ms;
+    }
 }
 @media (min-width: 768px) and (max-width: 991px) {
     .sidebar-map {
         left: 315px;
-   }
+    }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     .sidebar-map {
         left: 400px;
-   }
+    }
 }
 @media (min-width: 1200px) {
     .sidebar-map {
         left: 470px;
-   }
-}
-@media (max-width: 768px) {
-    .sidebar-map {
-        left: 0;
-        top: 40px;
-   }
-   .esriSimpleSliderTR {
-       right: 10px;
-       top: 50px;
-  }
-  .basemapToggle {
-      top: 50px;
-      transition: all 500ms;
- }
+    }
 }
