@@ -179,7 +179,7 @@
     left: 470px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .sidebar-map {
     left: 0;
     top: 40px;
