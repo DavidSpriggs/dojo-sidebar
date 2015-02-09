@@ -1,34 +1,37 @@
-/*jshint unused:false*/
 define([
-    'esri/map',
-
-    'put-selector/put',
-
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/_base/array',
-    'dojo/on',
-    'dojo/aspect',
-
     'core/models/appModel',
     'core/models/layerModel',
     'core/models/widgetModel',
 
+    'dojo/_base/array',
+    'dojo/_base/declare',
+    'dojo/_base/lang',
+    'dojo/on',
+
+    'esri/map',
+
+    'put-selector/put',
+
     'widgets/Sidebar'
-], function(
+], function (
+    appModel,
+    LayerModel,
+    WidgetModel,
+
+    array,
+    declare,
+    lang,
+    on,
+
     Map,
 
     put,
-
-    declare, lang, array, on, aspect,
-
-    appModel, LayerModel, WidgetModel,
 
     Sidebar
 ) {
     return declare(null, {
         _layers: [], //temp array for layer loading
-        constructor: function(config) {
+        constructor: function (config) {
             config = config || {};
             //enable debugging
             if (config.debug === true) {
@@ -39,7 +42,7 @@ define([
             //start w/ the map
             this.initMap(config);
         },
-        initMap: function(config) {
+        initMap: function (config) {
             //clone map config
             appModel.set('mapConfig', lang.clone(config.map));
             //create a div in the body, create an esri map in it
@@ -51,15 +54,15 @@ define([
             //wait until the map is loaded before continuing to init app
             map.on('load', lang.hitch(this, 'initLayers', config, map));
         },
-        initLayers: function(config, map) {
+        initLayers: function (config, map) {
             if (config.layerInfos && config.layerInfos.length > 0) {
                 //build array of layer types, require them, create layers and add to map
                 var modules = [];
-                array.forEach(config.layerInfos, function(layer) {
+                array.forEach(config.layerInfos, function (layer) {
                     modules.push(layer.type);
                 });
-                require(modules, lang.hitch(this, function() {
-                    array.forEach(config.layerInfos, function(layer, i) {
+                require(modules, lang.hitch(this, function () {
+                    array.forEach(config.layerInfos, function (layer, i) {
                         require([layer.type], lang.hitch(this, 'initLayer', layer, i));
                     }, this);
                     on.once(map, 'layers-add-result', lang.hitch(this, 'initUI', config, map));
@@ -69,7 +72,7 @@ define([
                 this.initUI(config, map);
             }
         },
-        initLayer: function(layer, i, Layer) {
+        initLayer: function (layer, i, Layer) {
             //create layer Model
             layer = new LayerModel(layer);
             //create layer
@@ -90,7 +93,7 @@ define([
             //unshift instead of push to keep layer ordering on map intact
             this._layers.unshift(l);
         },
-        initUI: function(config, map) {
+        initUI: function (config, map) {
             //create controls div
             appModel.mapControlsNode = put(map.root, 'div.mapControls.sidebar-map');
             //move the slider into the controls div
@@ -103,21 +106,21 @@ define([
             // init widgets
             this.initWidgets(config, map);
         },
-        initWidgets: function(config, map) {
+        initWidgets: function (config, map) {
             if (config.widgetInfos && config.widgetInfos.length > 0) {
                 //build array of widget types, require them, create widgets and add to map
                 var modules = [];
-                array.forEach(config.widgetInfos, function(widget) {
+                array.forEach(config.widgetInfos, function (widget) {
                     modules.push(widget.type);
                 });
-                require(modules, lang.hitch(this, function() {
-                    array.forEach(config.widgetInfos, function(widget, i) {
+                require(modules, lang.hitch(this, function () {
+                    array.forEach(config.widgetInfos, function (widget, i) {
                         require([widget.type], lang.hitch(this, 'initWidget', widget, i));
                     }, this);
                 }));
             }
         },
-        initWidget: function(widget, i, Widget) {
+        initWidget: function (widget, i, Widget) {
             //replace model properties in config if true
             if (widget.options.model === true) { //better to require 'core/models/appModel'
                 widget.options.model = appModel;
@@ -129,7 +132,7 @@ define([
                 widget.options.layerInfos = appModel.layerInfos;
             } else if (widget.options.layerInfos && widget.options.layerInfos.length) {
                 //replace layer ids with layers if custom layerInfos
-                array.forEach(widget.options.layerInfos, function(info) {
+                array.forEach(widget.options.layerInfos, function (info) {
                     if (info.layer && appModel.map.getLayer(info.layer)) {
                         info.layer = appModel.map.getLayer(info.layer);
                     }
@@ -148,22 +151,22 @@ define([
             //var w = new Widget(widget.options); //this doesn't work with some esri widgets like Legend which require srcNodeRef when constructing :/
             var w;
             switch (widget.get('placeAt')) {
-                case 'mapControls':
-                    w = new Widget(widget.options, put(appModel.mapControlsNode, 'div.' + (widget.get('className') || 'widget') + ' div'));
-                    break;
-                case 'map':
-                    w = new Widget(widget.options, put(appModel.map.root, 'div.' + (widget.get('className') || 'widget') + ' div'));
-                    break;
-                case 'tab':
-                    var tabOptions = widget.get('tabOptions') || {};
-                    var tab = appModel.sidebar.createTab(tabOptions);
-                    w = new Widget(widget.options, put(tab.containerNode, 'div'));
-                    break;
-                case 'none':
-                    w = new Widget(widget.options);
-                    break;
-                default:
-                    break;
+            case 'mapControls':
+                w = new Widget(widget.options, put(appModel.mapControlsNode, 'div.' + (widget.get('className') || 'widget') + ' div'));
+                break;
+            case 'map':
+                w = new Widget(widget.options, put(appModel.map.root, 'div.' + (widget.get('className') || 'widget') + ' div'));
+                break;
+            case 'tab':
+                var tabOptions = widget.get('tabOptions') || {};
+                var tab = appModel.sidebar.createTab(tabOptions);
+                w = new Widget(widget.options, put(tab.containerNode, 'div'));
+                break;
+            case 'none':
+                w = new Widget(widget.options);
+                break;
+            default:
+                break;
             }
             //start it
             w.startup();

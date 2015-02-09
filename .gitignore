@@ -1,6 +1,8 @@
 dist
 dev
-src/css
+!src/css/
+src/css/*
+!src/css/fonts/
 src/js/esri
 src/js/dojo
 src/js/dijit
